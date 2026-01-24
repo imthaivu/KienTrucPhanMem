@@ -1,0 +1,287 @@
+{
+  "info": {
+    "name": "RabbitMQ Testing Collection",
+    "description": "Test cases for RabbitMQ Producer/Consumer with and without DLQ",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "BASIC PRODUCER (producer.js)",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "health"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Test Case 1 - Valid Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:3000/test/valid-message",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "test",
+                "valid-message"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Test Case 2 - Message with Metadata",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:3000/test/message-with-metadata",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "test",
+                "message-with-metadata"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Test Case 3 - Bulk Messages (5)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"count\": 5}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/test/bulk-messages",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "test",
+                "bulk-messages"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Test Cases Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/test-cases",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "test-cases"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DLQ PRODUCER (producer_dlq.js)",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "health"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Test Case 1 - Valid Order (✅ Should Succeed)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:3000/test/valid-order",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "test",
+                "valid-order"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Test Case 2 - Invalid Order Missing ID (❌ Should Go to DLQ)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:3000/test/invalid-order-missing-id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "test",
+                "invalid-order-missing-id"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Test Case 3 - Invalid JSON (❌ Should Go to DLQ)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:3000/test/invalid-json",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "test",
+                "invalid-json"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Test Case 4 - Bulk Valid Orders",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"count\": 3}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/test/bulk-valid-orders",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "test",
+                "bulk-valid-orders"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Test Cases Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/test-cases",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "test-cases"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
